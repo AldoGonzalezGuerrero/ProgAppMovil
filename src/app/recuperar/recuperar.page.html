@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Recuperar contraseña</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div id="container">
+    <strong>¿Olvidaste tu contraseña?</strong>
+    <p>Por favor ingrese su nombre de usuario.</p>
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="floating">Nombre de Usuario</ion-label>
+            <ion-input #nombre></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <ion-button (click)="recuperar(nombre)" expand="block" fill="clear" shape="round">
+            Recuperar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <div *ngIf="ingresado;">
+      <ion-row > 
+        <ion-col size="12" >
+          <strong> Su contraseña es: {{contrasena}}</strong>
+        </ion-col>
+      </ion-row>
+      </div>
+      <div *ngIf="!existe;">
+      <ion-row > 
+        <ion-col size="12" >
+          <strong> El nombre de usuario ingresado no existe.</strong>
+        </ion-col>
+      </ion-row>
+      </div>
+    </ion-grid>
+  </div>
+
+</ion-content>
