@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from '../usuario.service';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -10,17 +12,26 @@ import { Router } from '@angular/router';
 export class HomePage {
   listaUsuarios = []
   equivocacion = false;
+  dato = "";
   constructor(
     private usuarioService: UsuarioService,
-    private router : Router
+    private router : Router,
+    public toastController : ToastController
     ) {}
 
   ngOnInit() {
     this.listaUsuarios = this.usuarioService.getListaUsuarios();
-
   }
 
-  login(user : HTMLInputElement, pass : HTMLInputElement){
+ async login(user : HTMLInputElement, pass : HTMLInputElement){
+    let posicion = 0;
+    const toast = await this.toastController.create({
+      message: 'Las credenciales no son correctas.',
+      duration: 2000,
+      color : "danger",
+      position : "bottom"
+    });
+
     try{
       const usuario = user.value;
       const contrasena = pass.value;
@@ -28,21 +39,20 @@ export class HomePage {
       for (let i of this.listaUsuarios) {
         if (usuario == i.usuario){
           if (contrasena == i.password){
-            this.equivocacion = false;
+            localStorage.setItem("1", JSON.stringify(i));
             this.router.navigate(['/inicio', i.id])
             break;
           }
           else{
-            this.equivocacion = true;
+            toast.present();
             break;
           }
         }
-        this.equivocacion = true;
+        toast.present();
       }
     }
-
     catch{
-      this.equivocacion = true;
+      toast.present();
     }
   }
   recuperar(){

@@ -8,7 +8,6 @@ import { UsuarioService } from '../usuario.service';
 export class RecuperarPage implements OnInit {
   ingresado = false;
   existe = true;
-  listaUsuarios = [];
   contrasena = "";
   constructor(
     private usuarioService: UsuarioService
@@ -18,9 +17,22 @@ export class RecuperarPage implements OnInit {
   }
 
   recuperar(nom: HTMLInputElement){
+    this.existe = false;
     const usuario = nom.value;
-    this.listaUsuarios = this.usuarioService.getListaUsuarios();
-    for (let i of this.listaUsuarios){
+    this.contrasena = localStorage.getItem(usuario);
+    try{
+    if (this.contrasena == null){
+      this.existe = false;
+    }
+    else{
+      this.existe = true;
+      this.ingresado = true;
+    }
+    }
+    catch{
+      this.existe = false;
+    }
+    /*for (let i of this.listaUsuarios){
       if (usuario == i.usuario){
         this.ingresado = true;
         this.contrasena = i.password;
@@ -30,6 +42,6 @@ export class RecuperarPage implements OnInit {
     }
     if (this.ingresado === false){
       this.existe = false;
-    }
+    }*/
   }
 }

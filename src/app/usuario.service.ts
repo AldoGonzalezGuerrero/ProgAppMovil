@@ -6,17 +6,17 @@ import { Usuario } from './usuario';
 export class UsuarioService {
   private usuariosExistentes: Usuario[] =[
     {
-      id: 1,
+      id: 0,
       usuario: 'TestDummy1',
       password: 'TestDummy1'
     },
     {
-      id: 2,
+      id: 1,
       usuario: 'TestDummy2',
       password: 'TestDummy2'
     },
     {
-      id: 3,
+      id: 2,
       usuario: 'TestDummy3',
       password: 'TestDummy3'
     },

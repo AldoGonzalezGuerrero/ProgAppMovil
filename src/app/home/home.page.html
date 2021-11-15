@@ -38,17 +38,11 @@
           <ion-button (click)="login(usuario, password)" expand="block" fill="clear" shape="round">
             Ingresar
           </ion-button>
-          <ion-button (click)="recuperar()" expand="block" fill="clear" shape="round">
-            Recuperar
-          </ion-button>
-        </ion-col>
-        <div *ngIf="equivocacion;">
-        <ion-col size="12">
-          <ion-text color="primary">
-            <h1>Los datos ingresados no son correctos.</h1>
+          <ion-text [routerLink]="['/recuperar']" color="primary">
+            ¿No recuerda su contraseña?
+            Click aquí.
           </ion-text>
         </ion-col>
-        </div>
       </ion-row>
     </ion-grid>
   </div>
