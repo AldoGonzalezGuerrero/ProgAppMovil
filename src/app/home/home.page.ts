@@ -3,6 +3,7 @@ import { UsuarioService } from '../usuario.service';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { ApirestService } from '../apirest.service';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,8 @@ export class HomePage {
   constructor(
     private usuarioService: UsuarioService,
     private router : Router,
-    public toastController : ToastController
+    public toastController : ToastController,
+    private api : ApirestService
     ) {}
 
   ngOnInit() {
@@ -40,6 +42,7 @@ export class HomePage {
         if (usuario == i.usuario){
           if (contrasena == i.password){
             localStorage.setItem("1", JSON.stringify(i));
+            this.api.getUser(String(i.id))
             this.router.navigate(['/inicio', i.id])
             break;
           }
@@ -53,6 +56,7 @@ export class HomePage {
     }
     catch{
       toast.present();
+      console.log("Error!");
     }
   }
   recuperar(){
