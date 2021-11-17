@@ -22,7 +22,9 @@ export class HomePage {
     ) {}
 
   ngOnInit() {
-    this.listaUsuarios = this.usuarioService.getListaUsuarios();
+    this.api.getUsers();
+    this.listaUsuarios = this.api.listado;
+    console.log(this.listaUsuarios);
   }
 
  async login(user : HTMLInputElement, pass : HTMLInputElement){
@@ -39,11 +41,10 @@ export class HomePage {
       const contrasena = pass.value;
 
       for (let i of this.listaUsuarios) {
-        if (usuario == i.usuario){
-          if (contrasena == i.password){
+        if (usuario == i.username){
+          if (contrasena == "1234"){
             localStorage.setItem("1", JSON.stringify(i));
-            this.api.getUser(String(i.id))
-            this.router.navigate(['/inicio', i.id])
+            this.router.navigate(['/inicio', i.id]);
             break;
           }
           else{
@@ -51,7 +52,6 @@ export class HomePage {
             break;
           }
         }
-        toast.present();
       }
     }
     catch{
