@@ -17,7 +17,17 @@
       </ion-button></ion-col>
     </ion-row>
   </ion-grid>
-
+  </div>
+  
+  <div *ngIf="listado.length > 0">
+    <ion-list>
+      <div *ngFor="let dato of listado">
+        <ion-item>
+          <ion-label>{{dato.title}}: <br><br> {{dato.body}}</ion-label>
+        </ion-item>
+        <br>
+      </div>
+    </ion-list>
   </div>
 
   <div *ngIf="!sesion;">

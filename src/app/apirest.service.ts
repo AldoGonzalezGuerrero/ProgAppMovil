@@ -38,7 +38,7 @@ export class ApirestService {
   }
 
   getPostsUsuario(id:String){
-    let url = this.apiURL + 'posts';
+    let url = this.apiURL + 'users/' + id + '/posts';
     return new Promise ((resolve, reject) =>
     {this.http.get(url).subscribe((data:[]) =>
       {
@@ -50,7 +50,7 @@ export class ApirestService {
   }
 
   getPost(id:String){
-    let url = this.apiURL + 'posts/' + id;
+    let url = this.apiURL + '/posts' + id;
     return new Promise((resolve, reject) =>
     {
       this.http.get(url).subscribe((data:any) =>

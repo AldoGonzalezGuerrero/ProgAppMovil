@@ -36,6 +36,7 @@ export class InicioPage implements OnInit {
   }
   
   async obtenerUsuario(){
+    this.api.getUser('1');
     this.usuario = this.api.datos;
     console.log(this.usuario);
   }
