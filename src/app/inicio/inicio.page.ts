@@ -43,7 +43,9 @@ export class InicioPage implements OnInit {
       console.log(this.listado);
     })
   }
-
+  limpiarPosts(){
+    this.listado = [];
+  }
   async limpiarStorage()
   {
     const alert = await this.alertControl.create({
