@@ -12,6 +12,8 @@ export class ApirestService {
 
   getUsers()
   {
+    //Hacemos clear del listado!!
+    this.listado = [];
     let url = this.apiURL + 'users';
     return new Promise((resolve, reject) =>
     {
@@ -26,6 +28,8 @@ export class ApirestService {
   }
   
   getPosts(){
+    //Hacemos clear del listado!!
+    this.listado = [];
     let url = this.apiURL + 'posts';
     return new Promise ((resolve, reject) =>
     {this.http.get(url).subscribe((data:[]) =>
@@ -38,6 +42,8 @@ export class ApirestService {
   }
 
   getPostsUsuario(id:String){
+    //Hacemos clear del listado!!
+    this.listado = [];
     let url = this.apiURL + 'users/' + id + '/posts';
     return new Promise ((resolve, reject) =>
     {this.http.get(url).subscribe((data:[]) =>

@@ -30,17 +30,18 @@ export class InicioPage implements OnInit {
       console.log(this.sesion);
     }
     else{
-    this.obtenerUsuario();
-
+      this.usuario = comprobacion;
+      console.log(this.usuario);
     }
   }
-  
+  /*
   async obtenerUsuario(){
     this.api.getUser('1');
     this.usuario = this.api.datos;
     console.log(this.usuario);
   }
-
+  */
+ 
   listar() {
     this.activatedRouter.paramMap.subscribe(paramMap => {
       const id = paramMap.get('id');
