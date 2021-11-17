@@ -11,7 +11,7 @@ import { ApirestService } from '../apirest.service';
   styleUrls: ['./inicio.page.scss'],
 })
 export class InicioPage implements OnInit {
-  usuario : any;
+  usuario : [];
   sesion = true;
   listado = [];
   constructor(
@@ -23,7 +23,7 @@ export class InicioPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    const comprobacion = localStorage.getItem("1");
+    const comprobacion = JSON.parse(localStorage.getItem("1"));
     console.log(comprobacion);
     if (comprobacion == null){
       this.sesion = false;
@@ -34,14 +34,7 @@ export class InicioPage implements OnInit {
       console.log(this.usuario);
     }
   }
-  /*
-  async obtenerUsuario(){
-    this.api.getUser('1');
-    this.usuario = this.api.datos;
-    console.log(this.usuario);
-  }
-  */
- 
+
   listar() {
     this.activatedRouter.paramMap.subscribe(paramMap => {
       const id = paramMap.get('id');
