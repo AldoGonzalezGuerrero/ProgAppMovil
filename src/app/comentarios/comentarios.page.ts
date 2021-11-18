@@ -14,6 +14,8 @@ export class ComentariosPage implements OnInit {
   sesion = true;
   listado = [];
   post: [];
+  comentario = [];
+  numero = 0;
 
   constructor(
     private activatedRouter : ActivatedRoute,
@@ -24,7 +26,6 @@ export class ComentariosPage implements OnInit {
 
   ngOnInit() {
     const comprobacion = JSON.parse(localStorage.getItem("1"));
-    console.log(comprobacion);
     if (comprobacion == null){
       this.sesion = false;
     }
@@ -44,4 +45,5 @@ export class ComentariosPage implements OnInit {
       console.log(this.listado);
     })
   }
+
   }

@@ -28,7 +28,6 @@ export class HomePage {
   }
 
  async login(user : HTMLInputElement, pass : HTMLInputElement){
-    let posicion = 0;
     const toast = await this.toastController.create({
       message: 'Las credenciales no son correctas.',
       duration: 2000,

@@ -21,14 +21,11 @@ export class InicioPage implements OnInit {
 
   ngOnInit() {
     const comprobacion = JSON.parse(localStorage.getItem("1"));
-    console.log(comprobacion);
     if (comprobacion == null){
       this.sesion = false;
-      console.log(this.sesion);
     }
     else{
       this.usuario = comprobacion;
-      console.log(this.usuario);
     }
   }
 

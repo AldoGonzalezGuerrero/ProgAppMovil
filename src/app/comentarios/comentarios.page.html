@@ -8,18 +8,19 @@
 </ion-header>
 
 <ion-content>
-<div *ngIf="post">
-  <!--Aquí va el post original, con el title y el body-->
-  <h1>Título: {{post.title}}</h1>
-  <h3>{{post.body}}</h3>
-</div>
 <div *ngIf="listado">
   <!--Aquí van los comentarios-->
-  <h4>Comentarios:</h4>
+  <h4 style="font-size: xx-large; text-align: center;">Comentarios:</h4>
   <div *ngFor="let dato of listado">
-    <h5>Título: {{dato.name}}</h5>
-    <h6>Autor: {{dato.email}}</h6>
-    <h6>{{dato.body}}</h6>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Autor: {{dato.email}}</ion-card-subtitle>
+        <ion-card-title>{{dato.name}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <h6>{{dato.body}}</h6>
+      </ion-card-content>
+    </ion-card>
     <br>
   </div>
 </div>
