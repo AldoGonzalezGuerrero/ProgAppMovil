@@ -20,6 +20,11 @@ const routes: Routes = [
     path: 'recuperar',
     loadChildren: () => import('./recuperar/recuperar.module').then( m => m.RecuperarPageModule)
   },
+  {
+    path: 'comentarios/:id',
+    loadChildren: () => import('./comentarios/comentarios.module').then( m => m.ComentariosPageModule),
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({

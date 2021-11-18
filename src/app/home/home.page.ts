@@ -52,6 +52,10 @@ export class HomePage {
             break;
           }
         }
+        if (usuario.trim() == "" && contrasena.trim() ==""){
+          toast.present();
+          break;
+        }
       }
     }
     catch{

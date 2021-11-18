@@ -29,6 +29,9 @@
       <div *ngFor="let dato of listado">
         <ion-item>
           <ion-label>{{dato.title}}: <br><br> {{dato.body}}</ion-label>
+          <ion-button (click)="verComentarios(dato.id)" expand="block" fill="clear" shape="round">
+            Ver post y comentarios
+          </ion-button>
         </ion-item>
         <br>
       </div>

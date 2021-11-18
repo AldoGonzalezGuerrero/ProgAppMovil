@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 export class ApirestService {
   listado = [];
   datos : any;
+  post = [];
   private apiURL = 'https://jsonplaceholder.typicode.com/';
   constructor(private http: HttpClient) { }
 
@@ -53,19 +54,35 @@ export class ApirestService {
       error => { console.log("Error en la solicitud!")}
       )}
     )
+  }  
+  getCommentsPost(id:String){
+    //Hacemos clear del listado!!
+    this.listado = [];
+    let url = this.apiURL + 'posts/' + id + '/comments';
+    return new Promise ((resolve, reject) =>
+    {this.http.get(url).subscribe((data:[]) =>
+      {
+        data.forEach(item => {this.listado.push(item); });
+      },
+      error => { console.log("Error en la solicitud!")}
+      )}
+    )
   }
 
   getPost(id:String){
-    let url = this.apiURL + '/posts' + id;
+    //Hacemos clear del listado!!
+    this.post = [];
+    let url = this.apiURL + 'posts/' + id;
     return new Promise((resolve, reject) =>
     {
-      this.http.get(url).subscribe((data:any) =>
+      this.http.get(url).subscribe((data: []) =>
       {
-        this.datos = data;
-        console.log(this.datos);
+        this.post = data;
+        console.table(this.post);
+        localStorage.setItem("2", JSON.stringify(data));
       },
-      error => { console.log("Error en la solicitud!")
-    })
+      error => { console.log("error en la solicitud")
+      })
     })
   }
 

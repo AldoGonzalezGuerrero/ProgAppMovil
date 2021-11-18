@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Post de: {{usuario.name}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="inicio"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div *ngIf="post">
+  <!--Aquí va el post original, con el title y el body-->
+  <h1>Título: {{post.title}}</h1>
+  <h3>{{post.body}}</h3>
+</div>
+<div *ngIf="listado">
+  <!--Aquí van los comentarios-->
+  <h4>Comentarios:</h4>
+  <div *ngFor="let dato of listado">
+    <h5>Título: {{dato.name}}</h5>
+    <h6>Autor: {{dato.email}}</h6>
+    <h6>{{dato.body}}</h6>
+    <br>
+  </div>
+</div>
+</ion-content>

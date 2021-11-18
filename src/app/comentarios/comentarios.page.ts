@@ -1,73 +1,47 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UsuarioService } from '../usuario.service';
 import { AlertController } from '@ionic/angular';
 import { ApirestService } from '../apirest.service';
 
 @Component({
-  selector: 'app-inicio',
-  templateUrl: './inicio.page.html',
-  styleUrls: ['./inicio.page.scss'],
+  selector: 'app-comentarios',
+  templateUrl: './comentarios.page.html',
+  styleUrls: ['./comentarios.page.scss'],
 })
-export class InicioPage implements OnInit {
+export class ComentariosPage implements OnInit {
   usuario : [];
   sesion = true;
   listado = [];
+  post: [];
+
   constructor(
     private activatedRouter : ActivatedRoute,
     private alertControl : AlertController,
     private router : Router,
     private api : ApirestService,
-  ) { }
+    ) { }
 
   ngOnInit() {
     const comprobacion = JSON.parse(localStorage.getItem("1"));
     console.log(comprobacion);
     if (comprobacion == null){
       this.sesion = false;
-      console.log(this.sesion);
     }
     else{
       this.usuario = comprobacion;
-      console.log(this.usuario);
+      this.post = JSON.parse(localStorage.getItem("2"));
+      this.listar();
     }
   }
 
   listar() {
     this.activatedRouter.paramMap.subscribe(paramMap => {
       const id = paramMap.get('id');
-      this.api.getPostsUsuario(String(id));
+      this.api.getPost(String(id));
+      this.api.getCommentsPost(String(id));
       this.listado = this.api.listado;
       console.log(this.listado);
     })
   }
-
-  limpiarPosts(){
-    this.listado = [];
   }
-
-  verComentarios(id:String){
-    this.router.navigate(['/comentarios', id]);
-  }
-
-  async limpiarStorage()
-  {
-    const alert = await this.alertControl.create({
-      cssClass: 'my-custom-class',
-      header: '¿Cerrar sesión?',
-      message: '<strong>¿Está seguro?</strong>',
-      buttons: [
-        {
-          text: 'No',
-          role: 'cancel'
-        }, {
-          text: 'Si',
-          handler: () => {
-            localStorage.clear();
-            this.router.navigate(['/home'])
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
-}
