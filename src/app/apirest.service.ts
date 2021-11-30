@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastController } from '@ionic/angular';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +11,7 @@ export class ApirestService {
   comment = [];
   commentid = 0;
   numero = 0;
+  objeto : any;
   private apiURL = 'https://jsonplaceholder.typicode.com/';
   constructor(private http: HttpClient,
     public toastController : ToastController,) { }
@@ -50,13 +50,31 @@ export class ApirestService {
   getPostsUsuario(id:String){
     //Hacemos clear del listado!!
     this.listado = [];
+    this.numero = 0;
     let url = this.apiURL + 'users/' + id + '/posts';
     return new Promise ((resolve, reject) =>
     {this.http.get(url).subscribe((data:[]) =>
       {
-        data.forEach(item => {this.listado.push(item); });
+        data.forEach(item => {
+          this.listado.push(item); 
+          localStorage.setItem(String(this.numero + 3), JSON.stringify(this.listado[this.numero]));
+          this.numero += 1;
+        });
+        console.log(this.numero);
+        this.savedPosts();
       },
-      error => { console.log("Error en la solicitud!")}
+      error => { 
+        console.log("Error en la solicitud!");
+        for (let i in localStorage){
+          this.objeto = JSON.parse(localStorage.getItem(i));
+          console.log(this.objeto);
+          if (this.objeto.hasOwnProperty('userId')){
+            console.log("Este objeto tiene userId.");
+            this.listado.push(JSON.parse(localStorage.getItem(i)));
+          }
+        }
+        this.tirarError();
+      }
       )}
     )
   }  
@@ -65,12 +83,24 @@ export class ApirestService {
     this.listado = [];
     this.numero = 0;
     let url = this.apiURL + 'posts/' + id + '/comments';
+    for (let i in localStorage){
+      this.objeto = JSON.parse(localStorage.getItem(i));
+      try {
+      if (this.objeto.hasOwnProperty('postId')){
+        localStorage.removeItem(i);
+      }
+        
+      } 
+      catch {
+        //xd
+      }
+    }
     return new Promise ((resolve, reject) =>
     {this.http.get(url).subscribe((data:[]) =>
       {
         data.forEach(item => {
           this.listado.push(item);
-          localStorage.setItem(String(this.numero + 3), JSON.stringify(this.listado[this.numero]));
+          localStorage.setItem(String(localStorage.length+1), JSON.stringify(this.listado[this.numero]));
           this.numero += 1;
         });
         console.log(this.numero);
@@ -80,9 +110,11 @@ export class ApirestService {
       error => { 
         console.log("Error en la solicitud!");
         for (let i in localStorage){
-          this.numero +=1;
-          if (this.numero >= 3 ){
-          this.listado.push(JSON.parse(localStorage.getItem(i)));
+          this.objeto = JSON.parse(localStorage.getItem(i));
+          console.log(this.objeto);
+          if (this.objeto.hasOwnProperty('postId')){
+            console.log("Este objeto tiene postId.");
+            this.listado.push(JSON.parse(localStorage.getItem(i)));
           }
         }
         this.tirarError();
@@ -101,7 +133,16 @@ export class ApirestService {
     });
     toast.present();
   }
+ async savedPosts(){
+  const toast = await this.toastController.create({
+    message: 'Posts guardados exitosamente.',
+    duration: 2000,
+    color : "success",
+    position : "bottom"
+  });
+  toast.present();
 
+ }
   async savedComments(){
     const toast = await this.toastController.create({
       message: 'Comentarios guardados exitosamente.',

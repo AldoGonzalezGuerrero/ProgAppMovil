@@ -12,6 +12,7 @@
   <!--Aquí van los comentarios-->
   <h4 style="font-size: xx-large; text-align: center;">Comentarios:</h4>
   <div *ngFor="let dato of listado">
+    <div *ngIf="dato.postId == id">
     <ion-card>
       <ion-card-header>
         <ion-card-subtitle>Autor: {{dato.email}}</ion-card-subtitle>
@@ -22,6 +23,7 @@
       </ion-card-content>
     </ion-card>
     <br>
+    </div>
   </div>
 </div>
 </ion-content>

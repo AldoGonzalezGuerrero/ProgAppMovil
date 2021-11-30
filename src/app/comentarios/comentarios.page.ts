@@ -16,6 +16,7 @@ export class ComentariosPage implements OnInit {
   post: [];
   comentario = [];
   numero = 0;
+  public id: string;
 
   constructor(
     private activatedRouter : ActivatedRoute,
@@ -25,6 +26,8 @@ export class ComentariosPage implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.id = this.activatedRouter.snapshot.paramMap.get('id');
+    console.log(this.id);
     const comprobacion = JSON.parse(localStorage.getItem("1"));
     if (comprobacion == null){
       this.sesion = false;

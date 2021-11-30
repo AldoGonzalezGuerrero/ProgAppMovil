@@ -41,6 +41,7 @@ export class HomePage {
 
       for (let i of this.listaUsuarios) {
         if (usuario == i.username){
+          this.equivocacion = false;
           if (contrasena == "1234"){
             localStorage.setItem("1", JSON.stringify(i));
             this.router.navigate(['/inicio', i.id]);
@@ -51,10 +52,16 @@ export class HomePage {
             break;
           }
         }
+        else{
+          this.equivocacion = true;
+        }
         if (usuario.trim() == "" && contrasena.trim() ==""){
           toast.present();
           break;
         }
+      }
+      if (this.equivocacion){
+        toast.present();
       }
     }
     catch{
